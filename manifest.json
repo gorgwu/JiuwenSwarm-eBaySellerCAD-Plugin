@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "package_type": "plugin",
+  "id": "ebayseller",
+  "name": "eBay Seller Agent",
+  "description": "Manage English eBay Canada seller listings, inventory, policies, orders and offers through eBay API actions.",
+  "display_name": {
+    "en": "eBay Seller Agent",
+    "zh": "eBay 卖家智能体"
+  },
+  "display_description": {
+    "en": "Read listings, inventory, orders and offers, and manage seller actions through eBay APIs.",
+    "zh": "通过 eBay API 查看商品、库存、订单和报价，并管理卖家操作。"
+  },
+  "category": "Business",
+  "source": "local",
+  "avatar": "",
+  "default_init_input": {
+    "en": "Which of my eBay Best Offers and buyer counteroffers need a response?",
+    "zh": "我的哪些 eBay 买家报价和还价需要回复？"
+  },
+  "tags": [
+    {
+      "en": "eBay",
+      "zh": "eBay"
+    },
+    {
+      "en": "Seller Operations",
+      "zh": "卖家运营"
+    }
+  ],
+  "quick_inputs": [
+    {
+      "en": "Which of my eBay Best Offers and buyer counteroffers need a response?",
+      "zh": "我的哪些 eBay 买家报价和还价需要回复？"
+    },
+    {
+      "en": "Show my active listings and inventory.",
+      "zh": "显示我正在销售的商品和库存。"
+    },
+    {
+      "en": "Show my shipping, payment, and return policies.",
+      "zh": "显示我的物流、付款和退货政策。"
+    }
+  ],
+  "skills": [],
+  "tools": [
+    {
+      "file": "./tools/ebay_seller_tools.py",
+      "class": "EbaySellerReadTool",
+      "display_name": {
+        "en": "eBay Seller Read",
+        "zh": "eBay 卖家数据读取"
+      },
+      "display_description": {
+        "en": "Read seller account, feedback, listings, inventory, orders, policies, offers, and category information.",
+        "zh": "读取卖家账户、评价、商品、库存、订单、政策、报价和类别信息。"
+      }
+    },
+    {
+      "file": "./tools/ebay_seller_tools.py",
+      "class": "EbaySellerListingWriteTool",
+      "display_name": {"en": "eBay Listing Changes", "zh": "eBay 商品修改"},
+      "display_description": {"en": "Create business policies, manage inventory and offers, and revise or end listings.", "zh": "创建商业政策、管理库存和报价，以及修改或结束商品。"}
+    },
+    {
+      "file": "./tools/ebay_seller_tools.py",
+      "class": "EbaySellerOfferWriteTool",
+      "display_name": {"en": "eBay Offer Changes", "zh": "eBay 报价操作"},
+      "display_description": {"en": "Respond to Best Offers or send offers to interested buyers.", "zh": "回复买家报价，或向有意向的买家发送报价。"}
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Credentials (keep the blank example shareable)
+.env
+.env.*
+*.env
+!.env.example
+
+# Python environments, caches, and build artifacts
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
+
+# Local runtime and Sandbox data
+logs/
+*.log
+tests/local-input.json
+tests/sandbox-fixtures.json
+tests/runs/

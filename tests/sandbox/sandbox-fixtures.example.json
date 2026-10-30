@@ -1,0 +1,21 @@
+{
+  "listing_id": "REPLACE_WITH_LISTING_ID",
+  "trading_listing_id": "REPLACE_WITH_DISPOSABLE_TRADING_LISTING_ID",
+  "sku": "REPLACE_WITH_DISPOSABLE_SKU",
+  "inventory_offer_id": "REPLACE_WITH_DISPOSABLE_INVENTORY_OFFER_ID",
+  "location_key": "REPLACE_WITH_LOCATION_KEY",
+  "order_id": "REPLACE_WITH_SANDBOX_ORDER_ID",
+  "fulfillment_id": "REPLACE_WITH_SHIPPING_FULFILLMENT_ID",
+  "best_offer_id": "REPLACE_WITH_PENDING_BUYER_OFFER_ID",
+  "revised_title": "Sandbox test listing revised title",
+  "fulfillment_policy_body": null,
+  "payment_policy_body": null,
+  "return_policy_body": null,
+  "inventory_item_body": null,
+  "location_body": null,
+  "inventory_offer_body": null,
+  "bulk_update_body": null,
+  "shipping_body": null,
+  "refund_body": null,
+  "interested_offer_body": null
+}
