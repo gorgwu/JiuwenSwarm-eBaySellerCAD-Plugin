@@ -9,7 +9,7 @@ import unittest
 import xml.etree.ElementTree as ET
 from unittest.mock import AsyncMock, patch
 
-from ebayseller_common.oauth import EbayAuth
+from common.oauth import EbayAuth
 from tools import ebay_seller_tools as seller
 from sandbox_cases import CASES, resolve
 from sandbox_tools import actions, marketplace_input

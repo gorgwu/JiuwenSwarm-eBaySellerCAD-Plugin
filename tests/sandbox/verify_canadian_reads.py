@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from ebayseller_common.oauth import get_seller_auth, load_settings
+from common.oauth import get_seller_auth, load_settings
 from tools.ebay_seller_tools import EbaySellerReadTool
 from sandbox_journal import load
 

@@ -12,7 +12,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from ebayseller_common.oauth import get_sandbox_buyer_auth, get_seller_auth
+from common.oauth import get_sandbox_buyer_auth, get_seller_auth
 from sandbox_marketplace import test_marketplace
 
 

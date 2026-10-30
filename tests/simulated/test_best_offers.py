@@ -14,8 +14,8 @@ sys.path.insert(0, str(ROOT.parent / "agent-core"))
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 
-from ebayseller_common.oauth import user_access_token  # noqa: E402
-from ebayseller_common.best_offers import EbayBestOffersTool, _parse_response, _request_xml  # noqa: E402
+from common.oauth import user_access_token  # noqa: E402
+from common.best_offers import EbayBestOffersTool, _parse_response, _request_xml  # noqa: E402
 
 
 def response_xml(offers: str, page_count: int = 1) -> bytes:
@@ -57,7 +57,7 @@ class FakeResponse:
 class BestOffersTests(unittest.TestCase):
     def test_best_offers_connection_failure_is_classified(self):
         import urllib.error
-        with patch('ebayseller_common.best_offers.get_seller_auth') as auth, patch('urllib.request.urlopen', side_effect=urllib.error.URLError(TimeoutError())):
+        with patch('common.best_offers.get_seller_auth') as auth, patch('urllib.request.urlopen', side_effect=urllib.error.URLError(TimeoutError())):
             auth.return_value.environment = 'sandbox'
             auth.return_value.access_token = 'fake'
             result = asyncio.run(EbayBestOffersTool().invoke({}))
@@ -65,7 +65,7 @@ class BestOffersTests(unittest.TestCase):
 
     def test_best_offers_trading_error_is_structured(self):
         raw = b'<GetBestOffersResponse xmlns="urn:ebay:apis:eBLBaseComponents"><Ack>Failure</Ack><Errors><ErrorCode>10007</ErrorCode><LongMessage>System error</LongMessage></Errors></GetBestOffersResponse>'
-        with patch('ebayseller_common.best_offers.get_seller_auth') as auth, patch('urllib.request.urlopen', return_value=FakeResponse(raw)):
+        with patch('common.best_offers.get_seller_auth') as auth, patch('urllib.request.urlopen', return_value=FakeResponse(raw)):
             auth.return_value.environment = 'sandbox'
             auth.return_value.access_token = 'fake'
             result = asyncio.run(EbayBestOffersTool().invoke({}))
@@ -85,7 +85,7 @@ class BestOffersTests(unittest.TestCase):
             calls.append(request)
             return FakeResponse(json.dumps({"access_token": f"access-{len(calls)}", "expires_in": 3600}).encode())
 
-        with patch("urllib.request.urlopen", side_effect=fake_urlopen), patch("ebayseller_common.oauth.time.monotonic", side_effect=[100, 100, 3600, 3600]):
+        with patch("urllib.request.urlopen", side_effect=fake_urlopen), patch("common.oauth.time.monotonic", side_effect=[100, 100, 3600, 3600]):
             first = user_access_token("https://api.sandbox.ebay.com", "sandbox", settings)
             cached = user_access_token("https://api.sandbox.ebay.com", "sandbox", settings)
             renewed = user_access_token("https://api.sandbox.ebay.com", "sandbox", settings)
@@ -114,8 +114,8 @@ class BestOffersTests(unittest.TestCase):
                '<Ack>Success</Ack><BestOfferArray>'
                + offer_xml('2239714', 'BuyerBestOffer', 'Pending')
                + '</BestOfferArray></GetBestOffersResponse>').encode()
-        from ebayseller_common.oauth import EbayAuth
-        with patch('ebayseller_common.best_offers.get_seller_auth', return_value=EbayAuth('sandbox', 'https://api.sandbox.ebay.com', 'fake')):
+        from common.oauth import EbayAuth
+        with patch('common.best_offers.get_seller_auth', return_value=EbayAuth('sandbox', 'https://api.sandbox.ebay.com', 'fake')):
             with patch('urllib.request.urlopen', return_value=FakeResponse(raw)):
                 result = asyncio.run(EbayBestOffersTool.invoke(object.__new__(EbayBestOffersTool), {'item_id': '110591475879'}))
         self.assertTrue(result['offers'][0]['needs_seller_response'])
@@ -128,8 +128,8 @@ class BestOffersTests(unittest.TestCase):
             calls.append(request)
             return FakeResponse(response_xml(offer_xml(str(len(calls)), "BuyerBestOffer", "Active"), page_count=3))
 
-        from ebayseller_common.oauth import EbayAuth
-        with patch("ebayseller_common.best_offers.get_seller_auth", return_value=EbayAuth("sandbox", "https://api.sandbox.ebay.com", "fake")):
+        from common.oauth import EbayAuth
+        with patch("common.best_offers.get_seller_auth", return_value=EbayAuth("sandbox", "https://api.sandbox.ebay.com", "fake")):
             with patch("urllib.request.urlopen", side_effect=fake_urlopen):
                 tool = object.__new__(EbayBestOffersTool)
                 result = asyncio.run(EbayBestOffersTool.invoke(tool, {"max_pages": 2}))

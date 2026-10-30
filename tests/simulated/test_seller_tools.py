@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest.mock import patch
 
-from ebayseller_common.oauth import EbayAuth
+from common.oauth import EbayAuth
 from tools import ebay_seller_tools as seller
 
 AUTH = EbayAuth("sandbox", "https://api.sandbox.ebay.com", "test-token")

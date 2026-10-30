@@ -99,7 +99,7 @@ Open PowerShell in the **installed plugin folder**, not the original download. I
 3. In the terminal at the installed plugin folder, run:
 
    ```powershell
-   python ebayseller_common/setup_oauth.py --environment production
+   python common/setup_oauth.py --environment production
    ```
 
    The script reads the installed copy's `.env`, asks for any missing App ID, Cert ID, and RuName, then opens eBay's permission page. Sign in as the **real seller** and approve the requested account, inventory and order permissions. eBay must allow them for your app. If you previously authorized fewer permissions, run the script again and approve the updated request. A buyer account is not needed for normal use.

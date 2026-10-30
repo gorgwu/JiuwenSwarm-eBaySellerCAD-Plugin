@@ -10,8 +10,8 @@ from datetime import datetime, timezone
 from typing import Any
 
 from openjiuwen.core.foundation.tool import Tool, ToolCard
-from ebayseller_common.oauth import get_seller_auth
-from ebayseller_common.errors import InvalidResponseError, http_error, local_failure, trading_failure
+from common.oauth import get_seller_auth
+from common.errors import InvalidResponseError, http_error, local_failure, trading_failure
 
 _NS = "{urn:ebay:apis:eBLBaseComponents}"
 _BUYER_TYPES = {"BuyerBestOffer", "BuyerCounterOffer"}

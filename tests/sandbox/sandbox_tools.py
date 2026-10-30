@@ -10,7 +10,7 @@ from sandbox_cases import CASES, resolve
 from sandbox_journal import add as add_resource, create as create_journal, load as load_journal, save as save_journal
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from ebayseller_common.oauth import get_seller_auth, load_settings
+from common.oauth import get_seller_auth, load_settings
 from sandbox_marketplace import test_marketplace
 from tools.ebay_seller_tools import (EbaySellerReadTool, EbaySellerListingWriteTool,
                                     EbaySellerOfferWriteTool)

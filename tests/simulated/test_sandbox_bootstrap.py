@@ -8,7 +8,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'sandbox'))
 import sandbox_bootstrap as bootstrap
-from ebayseller_common.oauth import EbayAuth
+from common.oauth import EbayAuth
 
 
 class FakeRead:

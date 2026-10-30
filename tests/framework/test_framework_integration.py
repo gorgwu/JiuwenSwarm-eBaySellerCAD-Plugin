@@ -15,7 +15,7 @@ SWARM = DESKTOP / 'jiuwenswarm'
 for path in (ROOT / 'tests' / 'sandbox', ROOT, SWARM, CORE):
     sys.path.insert(0, str(path))
 
-from ebayseller_common.oauth import EbayAuth
+from common.oauth import EbayAuth
 from sandbox_cases import CASES, resolve
 from openjiuwen.harness.resources import load_plugin_package
 from openjiuwen.harness.resources.extension_resolver import resolve_plugin_parts
@@ -70,7 +70,7 @@ class FrameworkIntegrationTests(unittest.TestCase):
             source.mkdir()
             for name in ('manifest.json', 'README.md'):
                 (source / name).write_bytes((ROOT / name).read_bytes())
-            for name in ('tools', 'ebayseller_common'):
+            for name in ('tools', 'common'):
                 shutil.copytree(ROOT / name, source / name, ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
             with patch.object(catalog, '_local_root', return_value=local), \
                  patch.object(catalog, '_built_in_root', return_value=builtin), \

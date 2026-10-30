@@ -5,13 +5,13 @@ from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'sandbox'))
-from ebayseller_common import oauth
+from common import oauth
 import sandbox_buyer_offer
 
 
 class BuyerAuthTests(unittest.TestCase):
     def test_listing_currency_is_read_from_item(self):
-        from ebayseller_common.oauth import EbayAuth
+        from common.oauth import EbayAuth
         auth = EbayAuth('sandbox', 'https://api.sandbox.ebay.com', 'fake')
         class Response:
             def __init__(self, value): self.value = value
@@ -25,7 +25,7 @@ class BuyerAuthTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Could not verify'):
                 sandbox_buyer_offer.listing_currency(auth, '123')
     def test_identity_request_has_xml_encoding_and_uses_sandbox(self):
-        from ebayseller_common.oauth import EbayAuth
+        from common.oauth import EbayAuth
         class Response:
             def __enter__(self): return self
             def __exit__(self, *args): return False
@@ -54,7 +54,7 @@ class BuyerAuthTests(unittest.TestCase):
                 refresh.assert_not_called()
 
     def test_same_buyer_and_seller_rejected_before_offer_submission(self):
-        from ebayseller_common.oauth import EbayAuth
+        from common.oauth import EbayAuth
         auth = EbayAuth('sandbox', 'https://api.sandbox.ebay.com', 'fake')
         with patch.object(sys, 'argv', ['sandbox_buyer_offer.py', '--listing-id', '123']), \
              patch.object(sandbox_buyer_offer, 'get_sandbox_buyer_auth', return_value=auth), \

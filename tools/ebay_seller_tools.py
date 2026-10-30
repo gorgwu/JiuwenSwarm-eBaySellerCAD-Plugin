@@ -11,9 +11,9 @@ import xml.etree.ElementTree as ET
 from typing import Any
 
 from openjiuwen.core.foundation.tool import Tool, ToolCard
-from ebayseller_common.oauth import get_application_auth, get_seller_auth
-from ebayseller_common.best_offers import EbayBestOffersTool
-from ebayseller_common.errors import InvalidResponseError, ebay_errors, http_error, local_failure, trading_failure
+from common.oauth import get_application_auth, get_seller_auth
+from common.best_offers import EbayBestOffersTool
+from common.errors import InvalidResponseError, ebay_errors, http_error, local_failure, trading_failure
 
 NS = "{urn:ebay:apis:eBLBaseComponents}"
 

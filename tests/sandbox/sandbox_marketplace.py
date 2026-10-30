@@ -1,5 +1,5 @@
 """Resolve the marketplace used by the Sandbox test scripts."""
-from ebayseller_common.oauth import load_settings
+from common.oauth import load_settings
 
 
 def test_marketplace(override=None):

@@ -6,7 +6,7 @@ The file `ebay_seller_tools.py` contains the three tools that JiuwenSwarm loads:
 - `ebayseller_listing_write` changes listings, inventory, and business policies.
 - `ebayseller_offer_write` responds to buyer offers or sends offers to interested buyers.
 
-Each tool supports several actions. Ask it for `describe_actions` to see their names and inputs, or see the action reference below. The Best Offers reader uses code in `ebayseller_common/best_offers.py`.
+Each tool supports several actions. Ask it for `describe_actions` to see their names and inputs, or see the action reference below. The Best Offers reader uses code in `common/best_offers.py`.
 
 The two tools that make changes require `confirm=true`. The agent supplies this value, so it does not prove the seller approved the change. In JiuwenSwarm, turn on permissions and set both write tools to **ask**. If a change times out or its result is unclear, check eBay before trying again.
 

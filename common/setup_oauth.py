@@ -16,7 +16,7 @@ import webbrowser
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from ebayseller_common.oauth import load_settings, settings_file_path
+from common.oauth import load_settings, settings_file_path
 
 AUTH_BASES = {"sandbox": "https://auth.sandbox.ebay.com", "production": "https://auth.ebay.com"}
 API_BASES = {"sandbox": "https://api.sandbox.ebay.com", "production": "https://api.ebay.com"}

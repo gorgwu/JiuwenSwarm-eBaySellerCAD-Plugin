@@ -10,7 +10,7 @@ import urllib.parse
 from pathlib import Path
 from unittest.mock import patch
 
-from ebayseller_common import setup_oauth
+from common import setup_oauth
 
 
 class SetupOAuthTests(unittest.TestCase):
