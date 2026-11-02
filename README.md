@@ -94,15 +94,15 @@ Open PowerShell in the **installed plugin folder**, not the original download. I
 
 ### Connect your seller account
 
-1. Open [eBay Application Keysets](https://developer.ebay.com/my/keys). Create and copy your **Production App ID** (Client ID) and **Production Cert ID** (Client Secret).
-2. Open [eBay User Tokens](https://developer.ebay.com/my/auth?index=0). Go to **Get a Token from eBay via Your Application**. Enable OAuth and create or select a Production redirect URL. Enter the information eBay requires. Copy the **RuName** (eBay's name for that redirect). Note it is not the display title or the accepted URL. The accepted URL must let you read the final browser address, including its query parameters.
+1. Open [eBay Application Keysets](https://developer.ebay.com/my/keys). Create and copy your **Production App ID** (Client ID) and **Production Cert ID** (Client Secret). Before using the Production keyset, apply for the Marketplace Account Deletion/Closure exemption for your developer application.
+2. Open [eBay User Tokens](https://developer.ebay.com/my/auth?index=0) for your Production keyset. Under **Get a Token from eBay via Your Application**, enable OAuth and create or select a Production redirect URL. Enter the information eBay requires and note its **RuName**. The RuName is not the display title or accepted URL; the accepted URL must let you read the final browser address, including its query parameters. You do not need to use **Get a User Token Here** or manually create a token; the setup script below handles seller consent and saves the refresh token.
 3. In the terminal at the installed plugin folder, run:
 
    ```powershell
    python common/setup_oauth.py --environment production
    ```
 
-   The script reads the installed copy's `.env` and prompts for any missing App ID, Cert ID, and RuName without echoing the values (can also fill in `.env` manually, however must still run this script for the Refresh token). If the terminal cannot hide input, setup stops. Then it opens eBay's permission page. Sign in as the **real seller** and approve the requested account, inventory and order permissions. eBay must allow them for your app. If you previously authorized fewer permissions, run the script again and approve the updated request. A buyer account is not needed for normal use.
+   The script reads the installed copy's `.env` and prompts for any missing App ID, Cert ID, and RuName without echoing the values. You can fill these in `.env` yourself, but still run the script to authorize the seller and save a renewable refresh token. If the terminal cannot hide input, setup stops. The script opens eBay's permission page; sign in as the **real seller** and approve the requested account, inventory and order permissions. eBay must allow them for your app. If you previously authorized fewer permissions, run the script again and approve the updated request. A buyer account is not needed for normal use.
 4. Copy the **entire final browser address** into the hidden script prompt. The address needs `code=` and `state=`. The script exchanges the code and saves the seller refresh token as `EBAY_PRODUCTION_USER_REFRESH_TOKEN` in `.env`. A page saying “Authorization successfully completed” alone is not the code. If its address has no `code=`, check that the RuName's Auth Accepted URL was saved, then rerun the script. Keep the address private because it contains a short-lived authorization code. [eBay's authorization guide](https://developer.ebay.com/develop/guides/sell/authorization)
 
 ### Use the plugin
