@@ -110,3 +110,9 @@ Select the installed plugin in the JiuwenSwarm conversation input and try: "Whic
 After the agent makes a change, check your seller account on the eBay website to confirm it appears as expected. If the result is unclear or a request times out, check eBay before trying again.
 
 The saved refresh token lets the plugin obtain and renew a short-lived access token automatically. Leave the matching `USER_ACCESS_TOKEN` field blank when using it. If the refresh token expires or is revoked, run setup again. Keep `.env` private. Alternatively, `EBAY_SELLER_ENV_FILE` can point JiuwenSwarm to a private credentials file.
+
+## Next steps
+
+- Add skills for common workflows, such as reviewing buyer offers or improving a listing. These would guide the agent through relevant actions and checks, reducing the planning it needs to do each time. Any speed improvement would need to be measured.
+- Expand support for seller operations such as fulfillment, refunds, promotions, and disputes where eBay API permissions allow.
+- Explore support for French eBay Canada, and other countries.

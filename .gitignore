@@ -19,6 +19,7 @@ dist/
 *.egg-info/
 
 # Local runtime and Sandbox data
+WORKSWARM_TEST_WORKFLOWS.md
 logs/
 *.log
 tests/local-input.json
