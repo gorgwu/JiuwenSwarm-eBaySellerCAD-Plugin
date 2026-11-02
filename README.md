@@ -4,8 +4,6 @@ Manage eBay Canada listings, inventory, orders, policies, and offers through Jiu
 
 ## Functionality
 
-For example, ask which Best Offers and buyer counteroffers need a reply. You can also ask the agent to list orders, check inventory, edit supported listings, or respond to offers. The Best Offer results do not cover every offer shown in Seller Hub.
-
 The plugin provides three general tools, which provide 33 actions:
 
 | Tool | Purpose |
@@ -70,7 +68,7 @@ You can ask the agent to perform any of these 33 actions.
 
 The plugin is best for users who have already set up a seller account and succesfully sold items before.
 
-The plugin currently focuses on its 33 listed actions; it does not include shipment management, refunds, promotions, disputes, or guided skills. It targets English eBay Canada, not French Canada.
+The plugin currently focuses on its 33 listed actions. It does not include shipment management, refunds, promotions, disputes, or guided skills. It targets English eBay Canada, not French Canada.
 
 During Canadian Sandbox testing, sending an offer to interested buyers returned HTTP 500 / eBay error 150000, an internal service failure on eBay's side. Delivery was not verified. Check the offer's state before retrying.
 
@@ -107,6 +105,8 @@ Open PowerShell in the **installed plugin folder**, not the original download. I
 
 ### Use the plugin
 
-Select the installed plugin in the JiuwenSwarm conversation input and try: "Which of my eBay Best Offers and buyer counteroffers need a response?" To check one listing, include its numeric eBay listing ID. To publish listings through eBay's Inventory API, first set up seller business policies and an inventory location. See [eBay's listing requirements](https://developer.ebay.com/api-docs/sell/static/inventory/publishing-offers.html).
+Select the installed plugin in the JiuwenSwarm conversation input and try: "Which of my eBay Best Offers and buyer counteroffers need a response?" To check one listing, include its numeric eBay listing ID. To publish listings through eBay's Inventory API, you may need to set up seller business policies and an inventory location, depending on the account. See [eBay's listing requirements](https://developer.ebay.com/api-docs/sell/static/inventory/publishing-offers.html).
+
+After the agent makes a change, check your seller account on the eBay website to confirm it appears as expected. If the result is unclear or a request times out, check eBay before trying again.
 
 The saved refresh token lets the plugin obtain and renew a short-lived access token automatically. Leave the matching `USER_ACCESS_TOKEN` field blank when using it. If the refresh token expires or is revoked, run setup again. Keep `.env` private. Alternatively, `EBAY_SELLER_ENV_FILE` can point JiuwenSwarm to a private credentials file.
