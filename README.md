@@ -14,8 +14,6 @@ The plugin provides three general tools, which provide 33 actions:
 | `ebayseller_listing_write` | Create policies, manage stock and offers, and edit or end supported listings. |
 | `ebayseller_offer_write` | Accept, decline, or counter a Best Offer, or send an offer to interested buyers. |
 
-In JiuwenSwarm, enable permissions and set `ebayseller_listing_write` and `ebayseller_offer_write` to **ask** so you can review changes before they are made. The plugin's own confirmation parameter is set by the agent and does not independently prove you approved a change. If a change times out or its result is unclear, check eBay before retrying.
-
 ### Available actions
 
 You can ask the agent to perform any of these 33 actions.
@@ -69,6 +67,8 @@ You can ask the agent to perform any of these 33 actions.
 | `send_offer_to_interested_buyers` | Send an offer to eligible interested buyers. |
 
 ## Limitations
+
+The plugin is best for users who have already set up a seller account and succesfully sold items before.
 
 The plugin currently focuses on its 33 listed actions; it does not include shipment management, refunds, promotions, disputes, or guided skills. It targets English eBay Canada, not French Canada.
 
