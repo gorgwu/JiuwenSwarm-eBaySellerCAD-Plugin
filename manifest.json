@@ -2,10 +2,10 @@
   "version": "1.0.0",
   "package_type": "plugin",
   "id": "ebayseller",
-  "name": "eBay Seller Agent",
+  "name": "eBay Seller",
   "description": "Manage English eBay Canada seller listings, inventory, policies, orders and offers through eBay API actions.",
   "display_name": {
-    "en": "eBay Seller Agent",
+    "en": "eBay Seller",
     "zh": "eBay 卖家智能体"
   },
   "display_description": {

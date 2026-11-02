@@ -1,4 +1,4 @@
-# eBay Seller Agent
+# eBay Seller
 
 Manage eBay Canada listings, inventory, orders, policies, and offers through JiuwenSwarm.
 
@@ -89,7 +89,7 @@ eBay has different ways to manage listings. Listings created through its Invento
 
 In JiuwenSwarm Desktop, import the `ebayseller_1.0.0` folder as a local plugin, then enable it. JiuwenSwarm's current import code creates a separate copy, so changes to the original folder do not update the installed copy.
 
-Open PowerShell in the **installed plugin folder**, not the original download. In the default Windows personal workspace, it is normally at `%USERPROFILE%\.jiuwenswarm\agent\workspace\plugins\plugin_packages\local\ebayseller`. Custom workspaces may use a different location. The setup script below reads the installed folder's `.env` and creates it from `.env.example` if needed.
+Open PowerShell in the **installed plugin folder**, not the original download. In the default Windows personal workspace, it is normally at `%USERPROFILE%\.jiuwenswarm\agent\workspace\plugins\plugin_packages\local\ebayseller`. Custom workspaces may use a different location. The setup script creates `.env` from `.env.example` if it is missing, then prompts for any missing values. Alternatively, create and fill in `.env` yourself before setup by running `Copy-Item .env.example .env` in this folder and entering your Production App ID, Cert ID, and RuName. Keep `.env` private.
 
 
 ### Connect your seller account
@@ -102,8 +102,8 @@ Open PowerShell in the **installed plugin folder**, not the original download. I
    python common/setup_oauth.py --environment production
    ```
 
-   The script reads the installed copy's `.env`, asks for any missing App ID, Cert ID, and RuName, then opens eBay's permission page. Sign in as the **real seller** and approve the requested account, inventory and order permissions. eBay must allow them for your app. If you previously authorized fewer permissions, run the script again and approve the updated request. A buyer account is not needed for normal use.
-4. Copy the **entire final browser address** into the waiting script prompt. The address needs `code=` and `state=`. The script exchanges the code and saves the seller refresh token as `EBAY_PRODUCTION_USER_REFRESH_TOKEN` in `.env`. A page saying “Authorization successfully completed” alone is not the code. If its address has no `code=`, check that the RuName's Auth Accepted URL was saved, then rerun the script. Keep the address private because it contains a short-lived authorization code. [eBay's authorization guide](https://developer.ebay.com/develop/guides/sell/authorization)
+   The script reads the installed copy's `.env` and prompts for any missing App ID, Cert ID, and RuName without echoing the values (can also fill in `.env` manually, however must still run this script for the Refresh token). If the terminal cannot hide input, setup stops. Then it opens eBay's permission page. Sign in as the **real seller** and approve the requested account, inventory and order permissions. eBay must allow them for your app. If you previously authorized fewer permissions, run the script again and approve the updated request. A buyer account is not needed for normal use.
+4. Copy the **entire final browser address** into the hidden script prompt. The address needs `code=` and `state=`. The script exchanges the code and saves the seller refresh token as `EBAY_PRODUCTION_USER_REFRESH_TOKEN` in `.env`. A page saying “Authorization successfully completed” alone is not the code. If its address has no `code=`, check that the RuName's Auth Accepted URL was saved, then rerun the script. Keep the address private because it contains a short-lived authorization code. [eBay's authorization guide](https://developer.ebay.com/develop/guides/sell/authorization)
 
 ### Use the plugin
 

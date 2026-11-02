@@ -12,6 +12,7 @@ import sys
 import urllib.error
 import urllib.parse
 import urllib.request
+import warnings
 import webbrowser
 from pathlib import Path
 
@@ -95,13 +96,22 @@ def save_settings(path: Path, updates: dict[str, str]) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def required_value(settings: dict[str, str], key: str, label: str, *, secret: bool = False) -> str:
+def required_value(settings: dict[str, str], key: str, label: str) -> str:
     value = settings.get(key, "").strip()
     while not value:
-        value = (getpass.getpass if secret else input)(f"{label}: ").strip()
+        value = hidden_input(f"{label} (hidden): ").strip()
     if "\n" in value or "\r" in value:
         raise ValueError(f"{label} must be a single line")
     return value
+
+
+def hidden_input(prompt: str) -> str:
+    with warnings.catch_warnings():
+        warnings.simplefilter("error", getpass.GetPassWarning)
+        try:
+            return getpass.getpass(prompt)
+        except getpass.GetPassWarning:
+            raise ValueError("This terminal cannot hide pasted input. Run setup in a terminal that supports hidden input.") from None
 
 
 def main() -> int:
@@ -118,8 +128,9 @@ def main() -> int:
         if args.account == 'buyer' and (environment != 'sandbox' or args.include_refunds):
             raise ValueError('Buyer authorization is available only in Sandbox and does not use refund scopes.')
         prefix = "EBAY_" + environment.upper() + "_"
+        print("All values entered or pasted at prompts are hidden and will not be echoed. Setup stops if this terminal cannot hide input.")
         client_id = required_value(settings, prefix + "CLIENT_ID", "eBay App ID (Client ID)")
-        client_secret = required_value(settings, prefix + "CLIENT_SECRET", "eBay Cert ID (Client Secret)", secret=True)
+        client_secret = required_value(settings, prefix + "CLIENT_SECRET", "eBay Cert ID (Client Secret)")
         runame = required_value(settings, prefix + "RUNAME", "eBay RuName (not the display title or Accepted URL)")
         path = settings_file_path()
         values = {
@@ -136,7 +147,8 @@ def main() -> int:
         if not webbrowser.open(url):
             print("Open this URL in a browser:\n" + url)
         print(f"Sign in as the {args.account} and approve access. Copy the entire final browser address, including code= and state=.")
-        callback = getpass.getpass("Paste the final browser address here (hidden): ")
+        print("The callback URL contains a short-lived authorization code; do not share it.")
+        callback = hidden_input("Paste the final browser address here (hidden): ")
         code = authorization_code(callback, state)
         refresh_token = exchange_code(environment, client_id, client_secret, runame, code)
         token_prefix = 'EBAY_SANDBOX_BUYER_' if args.account == 'buyer' else prefix + 'USER_'

@@ -7,6 +7,7 @@ import tempfile
 import unittest
 import sys
 import urllib.parse
+import warnings
 from pathlib import Path
 from unittest.mock import patch
 
@@ -14,6 +15,21 @@ from common import setup_oauth
 
 
 class SetupOAuthTests(unittest.TestCase):
+    def test_hidden_input_aborts_if_terminal_cannot_disable_echo(self):
+        with patch.object(
+            setup_oauth.getpass,
+            "getpass",
+            side_effect=lambda prompt: warnings.warn("echo unavailable", setup_oauth.getpass.GetPassWarning),
+        ):
+            with self.assertRaisesRegex(ValueError, "cannot hide pasted input"):
+                setup_oauth.hidden_input("Callback URL: ")
+
+    def test_required_value_uses_hidden_input(self):
+        with patch.object(setup_oauth, "hidden_input", return_value="pasted-value") as hidden:
+            value = setup_oauth.required_value({}, "EBAY_PRODUCTION_CLIENT_ID", "eBay App ID")
+        self.assertEqual(value, "pasted-value")
+        hidden.assert_called_once_with("eBay App ID (hidden): ")
+
     def test_buyer_authorization_requests_only_base_scope(self):
         url = setup_oauth.authorization_url('sandbox', 'app-id', 'runame', 'state', account='buyer')
         query = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
@@ -25,14 +41,17 @@ class SetupOAuthTests(unittest.TestCase):
             path = Path(directory) / '.env'
             path.write_text('EBAY_ENV=production\nEBAY_SANDBOX_USER_REFRESH_TOKEN=seller-token\n', encoding='utf-8')
             settings = {'EBAY_SANDBOX_CLIENT_ID': 'app', 'EBAY_SANDBOX_CLIENT_SECRET': 'secret', 'EBAY_SANDBOX_RUNAME': 'runame'}
+            output = io.StringIO()
             with patch.object(sys, 'argv', ['setup_oauth.py', '--environment', 'sandbox', '--account', 'buyer']), \
                  patch.object(setup_oauth, 'load_settings', return_value=settings), \
                  patch.object(setup_oauth, 'settings_file_path', return_value=path), \
                  patch.object(setup_oauth.secrets, 'token_urlsafe', return_value='test-state'), \
                  patch.object(setup_oauth.webbrowser, 'open', return_value=True), \
                  patch.object(setup_oauth.getpass, 'getpass', return_value='https://example.com/?code=test&state=test-state'), \
-                 patch.object(setup_oauth, 'exchange_code', return_value='buyer-token'):
+                 patch.object(setup_oauth, 'exchange_code', return_value='buyer-token'), \
+                 patch('sys.stdout', new=output):
                 self.assertEqual(setup_oauth.main(), 0)
+            self.assertIn('All values entered or pasted at prompts are hidden', output.getvalue())
             saved = path.read_text(encoding='utf-8')
             self.assertIn('EBAY_ENV=production', saved)
             self.assertIn('EBAY_SANDBOX_USER_REFRESH_TOKEN=seller-token', saved)
