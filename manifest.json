@@ -6,11 +6,11 @@
   "description": "Manage English eBay Canada seller listings, inventory, policies, orders and offers through eBay API actions.",
   "display_name": {
     "en": "eBay Seller",
-    "zh": "eBay 卖家智能体"
+    "zh": "eBay 卖家"
   },
   "display_description": {
     "en": "Read listings, inventory, orders and offers, and manage seller actions through eBay APIs.",
-    "zh": "通过 eBay API 查看和管理加拿大英语站的商品、库存、订单和报价。"
+    "zh": "查看商品、库存、订单和报价，并通过 eBay API 管理卖家操作。"
   },
   "category": "Business",
   "source": "local",
