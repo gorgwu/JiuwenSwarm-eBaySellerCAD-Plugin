@@ -2,15 +2,15 @@
   "version": "1.0.0",
   "package_type": "plugin",
   "id": "ebayseller",
-  "name": "eBay Seller",
-  "description": "Manage English eBay Canada seller listings, inventory, policies, orders and offers through eBay API actions.",
+  "name": "eBay Canada Seller",
+  "description": "Manage eBay Canada seller listings, inventory, policies, orders, and offers through eBay API actions.",
   "display_name": {
-    "en": "eBay Seller",
-    "zh": "eBay 卖家"
+    "en": "eBay Canada Seller",
+    "zh": "eBay 加拿大卖家"
   },
   "display_description": {
-    "en": "Read listings, inventory, orders and offers, and manage seller actions through eBay APIs.",
-    "zh": "查看商品、库存、订单和报价，并通过 eBay API 管理卖家操作。"
+    "en": "Read eBay Canada listings, inventory, orders and offers, and manage seller actions through eBay APIs.",
+    "zh": "查看 eBay 加拿大站点的商品、库存、订单和报价，并通过 eBay API 管理卖家操作。"
   },
   "category": "Business",
   "source": "local",
